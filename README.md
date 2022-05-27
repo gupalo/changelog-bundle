@@ -23,7 +23,7 @@ mappings:
 Add to config/routes/annotations.yaml
 
 ```yaml
-bpmnWorkflow:
+changeLog:
     resource: '@ChangeLogBundle/Resources/config/routes.yaml'
 ```
 
