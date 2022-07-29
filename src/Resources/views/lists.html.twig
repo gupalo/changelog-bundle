@@ -21,7 +21,7 @@
     {% for item in items %}
         <tr>
             <td class="text-nowrap">{{ item.id }}</td>
-            <td class="text-nowrap">{{ item.user ? item.user.username : '' }}</td>
+            <td class="text-nowrap">{{ item.user ? item.user : '' }}</td>
             <td class="text-nowrap">{{ item.entity }}</td>
             <td class="text-nowrap">{{ item.entityId }}</td>
             <td class="text-nowrap">{{ item.field }}</td>

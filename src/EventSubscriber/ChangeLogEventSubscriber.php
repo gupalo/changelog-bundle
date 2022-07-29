@@ -9,9 +9,13 @@ use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Gupalo\ChangeLogBundle\Entity\AwareChangeLogInterface;
 use Gupalo\ChangeLogBundle\Entity\ChangeLog;
+use Symfony\Component\Security\Core\Security;
 
 class ChangeLogEventSubscriber implements EventSubscriber
 {
+    public function __construct(protected Security $security)
+    {
+    }
 
     public function getSubscribedEvents(): array
     {
@@ -54,6 +58,9 @@ class ChangeLogEventSubscriber implements EventSubscriber
         $changeLog->setField($field);
         $changeLog->setOldValue($before);
         $changeLog->setValue($after);
+        if ($this->security->getUser()) {
+            $changeLog->setUser($this->security->getUser()->getUserIdentifier());
+        }
         $em->persist($changeLog);
     }
 

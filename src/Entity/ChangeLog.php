@@ -7,8 +7,6 @@ use DateTime;
 use DateTimeInterface;
 use Gupalo\ChangeLogBundle\Repository\ChangeLogRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gupalo\GoogleAuthBundle\Entity\User;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ChangeLogRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -34,8 +32,8 @@ class ChangeLog
     #[ORM\Column(type: 'text')]
     private string $value;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
-    private ?UserInterface $user = null;
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $user = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private DateTimeInterface $createdAt;
@@ -105,12 +103,12 @@ class ChangeLog
         return $this;
     }
 
-    public function getUser(): ?UserInterface
+    public function getUser(): ?string
     {
         return $this->user;
     }
 
-    public function setUser(?UserInterface $user): self
+    public function setUser(?string $user): self
     {
         $this->user = $user;
 
