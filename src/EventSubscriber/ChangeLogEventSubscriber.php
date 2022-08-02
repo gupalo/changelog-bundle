@@ -20,11 +20,22 @@ class ChangeLogEventSubscriber implements EventSubscriber
     public function getSubscribedEvents(): array
     {
         return [
-            Events::postUpdate
+            Events::postUpdate,
+            Events::postPersist
         ];
     }
 
+    public function postPersist(LifecycleEventArgs $args): void
+    {
+        $this->process($args);
+    }
+
     public function postUpdate(LifecycleEventArgs $args): void
+    {
+        $this->process($args);
+    }
+
+    private function process(LifecycleEventArgs $args): void
     {
         $entity = $args->getEntity();
         if ($entity instanceof AwareChangeLogInterface) {
